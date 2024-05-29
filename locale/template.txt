@@ -1,0 +1,8 @@
+# textdomain: pvp_toggle
+PvP is now enabled for you.=
+PvP is now disabled for you.=
+Toggle PvP on or off=
+PvP Toggle=
+Disable PvP=
+Enable PvP=
+PvP Settings=
