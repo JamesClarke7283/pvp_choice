@@ -1,5 +1,7 @@
 pvp_choice = {}
 
+local S = minetest.get_translator(minetest.get_current_modname())
+
 -- Function to remove nearby mcl_bows:arrow_entity around a player
 local function remove_nearby_arrows(player, radius)
     if not player or not player:is_player() then
@@ -28,10 +30,10 @@ local function toggle_pvp(player)
 
     if pvp_setting == "" or pvp_setting == "false" then
         player:get_meta():set_string("pvp_enabled", "true")
-        minetest.chat_send_player(player:get_player_name(), "PvP is now enabled for you.")
+        minetest.chat_send_player(player:get_player_name(), S("PvP is now enabled for you."))
     else
         player:get_meta():set_string("pvp_enabled", "false")
-        minetest.chat_send_player(player:get_player_name(), "PvP is now disabled for you.")
+        minetest.chat_send_player(player:get_player_name(), S("PvP is now disabled for you."))
     end
 end
 
@@ -43,7 +45,7 @@ end
 
 -- Registering the /toggle_pvp command
 minetest.register_chatcommand("toggle_pvp", {
-    description = "Toggle PvP on or off",
+	description = S("Toggle PvP on or off"),
     privs = {interact = true},
     func = function(name)
         local player = minetest.get_player_by_name(name)
@@ -105,14 +107,14 @@ if minetest.get_modpath("mcl_inventory") then
     
     mcl_inventory.register_survival_inventory_tab({
         id = "pvp_toggle",
-        description = "PvP Toggle",
+        description = S("PvP Toggle"),
         item_icon = "mcl_tools:sword_diamond",  -- Replace with an appropriate icon
         show_inventory = true,
         build = function(player)
             minetest.log("action", "[PvP Mod] Building PvP formspec for player " .. player:get_player_name())
             local pvp_setting = player:get_meta():get_string("pvp_enabled")
-            local button_label = pvp_setting == "true" and "Disable PvP" or "Enable PvP"
-            return "label[1,1;PvP Settings]" ..
+            local button_label = pvp_setting == "true" and S("Disable PvP") or S("Enable PvP")
+            return "label[1,1;"..S("PvP Settings").."]" ..
                    "button[2,2;3,1;toggle_pvp;" .. button_label .. "]"
         end,
         handle = function(player, fields)
